@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
     Ip targetIp = Ip(argv[3]);
 
     // 코드 내부에서 직접 MAC 주소 설정
-    Mac myMac = Mac("58:1C:F8:F4:FD:DF"); // 여기서 "YOUR_MAC_ADDRESS"를 실제 MAC 주소로 변경해주세요.
+    Mac myMac = Mac("58:1C:F8:F4:FD:DF"); 
 
     char errbuf[PCAP_ERRBUF_SIZE];
     pcap_t* handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
