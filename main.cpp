@@ -18,7 +18,6 @@ void usage() {
 Mac requestArp(pcap_t* handle, Ip targetIp, Mac myMac, Ip senderIp) {
     EthArpPacket packet;
 
-    // ARP Request 패킷 설정
     packet.eth_.dmac_ = Mac("FF:FF:FF:FF:FF:FF");  // Broadcast
     packet.eth_.smac_ = myMac;
     packet.eth_.type_ = htons(EthHdr::Arp);
@@ -33,14 +32,12 @@ Mac requestArp(pcap_t* handle, Ip targetIp, Mac myMac, Ip senderIp) {
     packet.arp_.tmac_ = Mac("00:00:00:00:00:00");
     packet.arp_.tip_ = htonl(targetIp);
 
-    // ARP Request 패킷 전송
     int res = pcap_sendpacket(handle, reinterpret_cast<const u_char*>(&packet), sizeof(EthArpPacket));
     if (res != 0) {
         fprintf(stderr, "pcap_sendpacket return %d error=%s\n", res, pcap_geterr(handle));
         return Mac("00:00:00:00:00:00");
     }
 
-    // ARP Reply 패킷 수신
     while (true) {
         struct pcap_pkthdr* header;
         const u_char* response;
@@ -66,7 +63,6 @@ int main(int argc, char* argv[]) {
     Ip senderIp = Ip(argv[2]);
     Ip targetIp = Ip(argv[3]);
 
-    // 코드 내부에서 직접 MAC 주소 설정
     Mac myMac = Mac("58:1C:F8:F4:FD:DF"); 
 
     char errbuf[PCAP_ERRBUF_SIZE];
