@@ -18,7 +18,7 @@ void usage() {
 Mac requestArp(pcap_t* handle, Ip targetIp, Mac myMac, Ip senderIp) {
     EthArpPacket packet;
 
-    packet.eth_.dmac_ = Mac("FF:FF:FF:FF:FF:FF");  // Broadcast
+    packet.eth_.dmac_ = Mac("FF:FF:FF:FF:FF:FF");  
     packet.eth_.smac_ = myMac;
     packet.eth_.type_ = htons(EthHdr::Arp);
 
